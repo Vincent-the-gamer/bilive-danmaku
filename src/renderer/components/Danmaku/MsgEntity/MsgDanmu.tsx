@@ -6,7 +6,7 @@ import MsgUserAvatar from './MsgUserAvatar';
 import { ConfigKey } from '../../../reducers/types';
 import { currentTranslateToCode, translate } from '../../../utils/translation';
 import { openLink } from '../../../utils/common';
-import voice from '../../../utils/vioce';
+import voice from '../../../utils/voice';
 import StyledDao, { StyledDaoNS } from '../../../dao/StyledDao';
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { selectConfig, updateConfig } from "../../../store/features/configSlice";

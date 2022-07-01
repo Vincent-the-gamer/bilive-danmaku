@@ -1,10 +1,9 @@
 /**
  * @author lzghzr https://github.com/lzghzr
  * @author Beats0 https://github.com/Beats0
- * 参考了 lzghzr 的数据类型结构，但是现在好多类型官方都改了，自己加了2个CmdType
- * 又重新补了很多，还有很多没改，有些参数太多的完全不知道啥意思 = =
- * 反正很多类型用不上，懒得改了
  * */
+
+// @ts-nocheck
 
 enum CmdType {
   CONNECTING = 'CONNECTING',

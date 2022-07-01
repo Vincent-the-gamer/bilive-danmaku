@@ -1,7 +1,7 @@
 /**
  * see https://stackoverflow.com/questions/51328586/how-to-restore-default-window-size-in-an-electron-app
  * * */
-
+// @ts-nocheck
 // import { screen } from 'electron';
 import settings from 'electron-settings';
 import BrowserWindow = Electron.BrowserWindow;

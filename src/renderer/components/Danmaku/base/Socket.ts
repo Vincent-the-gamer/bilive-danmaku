@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * @author LeeeeeeM https://github.com/LeeeeeeM/bilibili-web-socket
  * @author Beats0 https://github.com/Beats0

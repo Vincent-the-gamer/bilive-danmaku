@@ -3,8 +3,13 @@
   src: url('assets/fonts/lolita.ttf');
 }
 
+@font-face {
+  font-family: 'xiawu';
+  src: url('assets/fonts/xiawu.ttf');
+}
+
 :root{
-  --primary-backgroundColor: rgba(0,0,0,0.5);
+  --primary-backgroundColor: rgba(255,20,147,0.5);
   --primary-avatarSize: 22px;
   --primary-fontSize: 16px;
   --primary-fontFamily: '';
@@ -126,9 +131,12 @@ a:hover {
 }
 
 .danmakuContainer {
-  background: var(--primary-backgroundColor);
   overflow: hidden;
   width: 100%;
+}
+.danmakuContainer h4{
+  color: white;
+  margin-left: 5px;
 }
 
 .backButton {
@@ -799,6 +807,11 @@ a:hover {
   font-size: var(--primary-fontSize);
   line-height: var(--primary-fontLineHeight);
   margin-top: var(--primary-fontMarginTop);
+  /* 使用字体 */
+  font-family: xiawu,serif;
+  color: white;
+  text-shadow: 2px 2px 3px black, 0 0 0.2em deepskyblue;
+
 }
 
 span.danmaku-content {
@@ -1060,6 +1073,10 @@ span.danmaku-content {
 .aboutContainer {
   display: flex;
   flex-direction: column;
+  width: 200px;
+}
+.aboutContainer span{
+  width: 190px;
 }
 .danmakuBlockToolTip {
   left: auto!important;
@@ -2544,6 +2561,7 @@ input.custom-style {
   text-align: left;
 }
 .danmakuWrap {
+  background: var(--primary-backgroundColor);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

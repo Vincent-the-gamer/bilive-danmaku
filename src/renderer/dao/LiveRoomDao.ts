@@ -13,11 +13,12 @@ export interface LiveRoomData {
 }
 
 const defaultLiveRoomData: LiveRoomData = {
-  roomid: 292397,
-  shortid: 292397,
-  uid: 425286,
-  lastTime: Date.now()
+  roomid: 1023, //纯黑
+  shortid: 1023, //纯黑
+  uid: 585267,  //还是纯黑
+  lastTime: Date.now(),
 };
+
 
 export default class LiveRoomDao {
   static get(shortid: number): LiveRoomData {

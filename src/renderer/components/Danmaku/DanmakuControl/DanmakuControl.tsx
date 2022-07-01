@@ -1,9 +1,10 @@
+// @ts-nocheck
 import { useState } from "react";
 import { ipcRenderer } from "electron";
 import { useTranslation } from "react-i18next";
 import Tooltip from "rc-tooltip";
 import { ConfigKey } from "../../../reducers/types";
-import voice from "../../../utils/vioce";
+import voice from "../../../utils/voice";
 import {
   arrayDiff,
   hasNewVersion,
@@ -85,22 +86,12 @@ function DanmakuControl(props: Props) {
       case ConfigKey.blockMode:
         v = config[k] === 0 ? 1 : 0;
         break;
+        // 非 0 即 1
       case ConfigKey.backgroundColor:
-        setCssVariable(
-          ConfigKey.backgroundColor,
-          v === 0
-            ? `rgba(255,255,255, ${config.backgroundOpacity})`
-            : `rgba(0,0,0, ${config.backgroundOpacity})`
-        );
+        setCssVariable(ConfigKey.backgroundColor, v === 0 ? `rgba(0,0,0,${config.backgroundOpacity})` : `rgba(255,20,147,${config.backgroundOpacity})`);
         break;
       case ConfigKey.backgroundOpacity:
-        v = v / 100;
-        setCssVariable(
-          ConfigKey.backgroundColor,
-          config.backgroundColor === 0
-            ? `rgba(255,255,255 ${v})`
-            : `rgba(0,0,0, ${v})`
-        );
+        setCssVariable(ConfigKey.backgroundColor, config.backgroundColor === 0 ? `rgba(0,0,0,${v})` : `rgba(255,20,147,${v})`)
         break;
       case ConfigKey.fontFamily:
         setCssVariable(ConfigKey.fontFamily, v);
@@ -217,7 +208,7 @@ function DanmakuControl(props: Props) {
         </Tooltip>
         <span title={t('DanmakuControlClearHistory')} onClick={() => handleClickControl(ControlType.CLEAR)} className="icon-item icon-font icon-clear" />
         <span title={t('DanmakuControlBlockScroll')} onClick={() => handleClickControl(ControlType.BLOCK)} className={`icon-item icon-font ${config.blockScrollBar ? 'icon-lock-1 active' : 'icon-unlock-1'}`} />
-        <span title="Dev Tools" onClick={handleToggleDevTools} className="icon-font icon-item icon-no-modified" />
+        <span title="控制台" onClick={handleToggleDevTools} className="icon-font icon-item icon-no-modified" />
         <Tooltip
           visible={currentName === ControlType.ABOUT}
           animation="zoom"
@@ -239,11 +230,12 @@ function DanmakuControl(props: Props) {
   );
 }
 
+//弹幕测试
 function DanmakuTest(props: { onMessage: OnMessageFunc }) {
   const { onMessage } = props;
   const lists = [
-    {id: 'DANMU_MSG', 'cmd': 'DANMU_MSG', 'info': [[0, 1, 25, 16777215, 1588757852749, 1588757795, 0, '833999c8', 0, 0, 0], '(´；ω；`)', [107658253, '小柯逗B', 0, 0, 0, 10000, 1, ''], [], [12, 0, 6406234, '>50000'], ['', ''], 0, 0, null, { 'ts': 1588757852, 'ct': 'C61CBE3A' }, 0, 0, null, null, 0] },
-    {id: 'DANMU_MSG3', "cmd": "DANMU_MSG", "info": [ [ 0, 4, 25, 14893055, 1647315657594, 1114778426, 0, "49c94279", 0, 0, 5, "#1453BAFF,#4C2263A2,#3353BAFF", 0, "{}", "{}", { "mode": 0, "show_player_type": 0, "extra": "{\"send_from_me\":false,\"mode\":0,\"color\":14893055,\"dm_type\":0,\"font_size\":25,\"player_mode\":4,\"show_player_type\":0,\"content\":\"蜘蛛侠就是彼得帕克是吧，我知道，因为这是\",\"user_hash\":\"1237926521\",\"emoticon_unique\":\"\",\"bulge_display\":0,\"direction\":0,\"pk_direction\":0,\"quartet_direction\":0,\"yeah_space_type\":\"\",\"yeah_space_url\":\"\",\"jump_to_url\":\"\",\"space_type\":\"\",\"space_url\":\"\"}" } ], "蜘蛛侠就是彼得帕克是吧，我知道，因为这是", [ 478883246, "蓝猫品牌的衣服", 0, 0, 0, 10000, 1, "#00D1F1" ], [ 23, "脆鲨", "七海Nana7mi", 21452505, 1725515, "", 0, 6809855, 1725515, 5414290, 3, 1, 434334701 ], [ 10, 0, 9868950, ">50000", 0 ], [ "", "" ], 0, 3, null, { "ts": 1647315657, "ct": "C67DE23F" }, 0, 0, null, null, 0, 105 ] },
+    {id: 'DANMU_MSG', 'cmd': 'DANMU_MSG', 'info': [[0, 1, 25, 16777215, 1588757852749, 1588757795, 0, '833999c8', 0, 0, 0], '(´；ω；`)', [107658253, 'IMO_N7O', 0, 0, 0, 10000, 1, ''], [], [12, 0, 6406234, '>50000'], ['', ''], 0, 0, null, { 'ts': 1588757852, 'ct': 'C61CBE3A' }, 0, 0, null, null, 0] },
+    {id: 'DANMU_MSG3', "cmd": "DANMU_MSG", "info": [ [ 0, 4, 25, 14893055, 1647315657594, 1114778426, 0, "49c94279", 0, 0, 5, "#1453BAFF,#4C2263A2,#3353BAFF", 0, "{}", "{}", { "mode": 0, "show_player_type": 0, "extra": "{\"send_from_me\":false,\"mode\":0,\"color\":14893055,\"dm_type\":0,\"font_size\":25,\"player_mode\":4,\"show_player_type\":0,\"content\":\"我超\",\"user_hash\":\"1237926521\",\"emoticon_unique\":\"\",\"bulge_display\":0,\"direction\":0,\"pk_direction\":0,\"quartet_direction\":0,\"yeah_space_type\":\"\",\"yeah_space_url\":\"\",\"jump_to_url\":\"\",\"space_type\":\"\",\"space_url\":\"\"}" } ], "绝了", [ 478883246, "黑桐谷歌", 0, 0, 0, 10000, 1, "#00D1F1" ], [ 23, "脆鲨", "七海Nana7mi", 21452505, 1725515, "", 0, 6809855, 1725515, 5414290, 3, 1, 434334701 ], [ 10, 0, 9868950, ">50000", 0 ], [ "", "" ], 0, 3, null, { "ts": 1647315657, "ct": "C67DE23F" }, 0, 0, null, null, 0, 105 ] },
     {id: 'DANMU_MSG2', "cmd": "DANMU_MSG", "info": [ [ 0, 1, 25, 9920249, 1647315575017, 1647313536, 0, "2a20a2f5", 0, 0, 2, "#19897EFF,#403F388E,#33897EFF", 0, "{}", "{}", { "mode": 0, "show_player_type": 0, "extra": "{\"send_from_me\":false,\"mode\":0,\"color\":9920249,\"dm_type\":0,\"font_size\":25,\"player_mode\":1,\"show_player_type\":0,\"content\":\"漏我总督了\",\"user_hash\":\"706781941\",\"emoticon_unique\":\"\",\"bulge_display\":0,\"direction\":0,\"pk_direction\":0,\"quartet_direction\":0,\"yeah_space_type\":\"\",\"yeah_space_url\":\"\",\"jump_to_url\":\"\",\"space_type\":\"\",\"space_url\":\"\"}" } ], "漏我总督了", [ 3540855, "相劝", 0, 0, 0, 10000, 1, "#E17AFF" ], [ 26, "脆鲨", "七海Nana7mi", 21452505, 398668, "", 0, 16771156, 398668, 6850801, 2, 1, 434334701 ], [ 20, 0, 6406234, ">50000", 0 ], [ "", "" ], 0, 2, null, { "ts": 1647315575, "ct": "D8DD85CC" }, 0, 0, null, null, 0, 112 ] },
     {id: 'DANMU_MSG1', "cmd": "DANMU_MSG", "info": [ [ 0, 1, 25, 8322816, 1647315419735, 1639028927, 0, "603278be", 0, 0, 1, "#33FFE99E,#40DCA731,#33FFE99E", 0, "{}", "{}", { "mode": 0, "show_player_type": 0, "extra": "{\"send_from_me\":false,\"mode\":0,\"color\":8322816,\"dm_type\":0,\"font_size\":25,\"player_mode\":1,\"show_player_type\":0,\"content\":\"好好好\",\"user_hash\":\"1613920446\",\"emoticon_unique\":\"\",\"bulge_display\":0,\"direction\":0,\"pk_direction\":0,\"quartet_direction\":0,\"yeah_space_type\":\"\",\"yeah_space_url\":\"\",\"jump_to_url\":\"\",\"space_type\":\"\",\"space_url\":\"\"}" } ], "好好好", [ 279698, "30块SC", 0, 0, 0, 10000, 1, "#FF7C28" ], [ 31, "脆鲨", "七海Nana7mi", 21452505, 2951253, "", 0, 16771156, 2951253, 10329087, 1, 1, 434334701 ], [ 40, 0, 10512625, 32363, 0 ], [ "", "" ], 0, 1, null, { "ts": 1647315419, "ct": "4BAADCCE" }, 0, 0, null, null, 0, 119 ] },
     {id: 'SEND_GIFT1', 'cmd': 'SEND_GIFT', 'data': { 'giftName': '辣条', 'num': 1000, 'uname': 'Saver-yuan', 'face': 'http://i1.hdslb.com/bfs/face/2c9054349f4fca2db397d00ecc91da9dabaf7d67.jpg', 'guard_level': 0, 'rcost': 421436697, 'uid': 6186224, 'top_list': [], 'timestamp': Date.now(), 'giftId': 1, 'giftType': 0, 'action': '喂食', 'super': 0, 'super_gift_num': 0, 'super_batch_gift_num': 0, 'batch_combo_id': '', 'price': 100, 'rnd': '7816743', 'newMedal': 0, 'newTitle': 0, 'medal': [], 'title': '', 'beatId': '', 'biz_source': 'live', 'metadata': '', 'remain': 0, 'gold': 0, 'silver': 0, 'eventScore': 0, 'eventNum': 0, 'smalltv_msg': [], 'specialGift': null, 'notice_msg': [], 'smallTVCountFlag': true, 'capsule': null, 'addFollow': 0, 'effect_block': 1, 'coin_type': 'silver', 'total_coin': 1300, 'effect': 0, 'broadcast_id': 0, 'draw': 0, 'crit_prob': 0, 'tag_image': '', 'send_master': null, 'is_first': true, 'demarcation': 2, 'combo_stay_time': 3, 'combo_total_coin': 0, 'tid': '1588757584122400001' } },
@@ -297,12 +289,13 @@ function DanmakuTest(props: { onMessage: OnMessageFunc }) {
   );
 }
 
+//设置字体
 function SettingFontFamily(props: {
   handleUpdateConfig: HandleUpdateConfigFunc;
 }) {
   const { handleUpdateConfig } = props;
   const config = useAppSelector(selectConfig);
-  const systemFontsLists = ['lolita', ...systemFonts];
+  const systemFontsLists = ['lolita', 'xiawu', ...systemFonts];
 
   const onSelect = ({ key }) => {
     handleUpdateConfig(ConfigKey.fontFamily, key);
@@ -402,21 +395,25 @@ function SettingContent(props: {
         <span className="danmaku-adjust-label v-middle dp-i-block">{t('DanmakuSettingShowTransition')}</span>
         <Switch status={config.showTransition} onChange={v => handleUpdateConfig(ConfigKey.showTransition, v)} />
       </div>
+
+      {/* 背景颜色 */}
       <div className="danmaku-adjust-row">
-        <span className="danmaku-adjust-label v-middle dp-i-block">{t('BackgroundColorTitle')}（{config.backgroundColor === 0 ? t('BackgroundColorWhite') : t('BackgroundColorBlack')}）</span>
+        <span className="danmaku-adjust-label v-middle dp-i-block">{t('BackgroundColorTitle')}（{ `${config.backgroundColor === 0 ? '黑色' : '骚紫色'}` }）</span>
         <Switch status={config.backgroundColor} onChange={v => handleUpdateConfig(ConfigKey.backgroundColor, v)} />
       </div>
+      {/* 背景透明度 */}
       <div className="danmaku-adjust-row">
         <span className="danmaku-adjust-label v-middle dp-i-block">{t('BackgroundOpacity')}</span>
         <div className="link-range-ctnr">
-          <Slider value={toPercentNum(config.backgroundOpacity)}
+          <Slider value={config.backgroundOpacity}
                   min={0}
-                  max={100}
-                  step={2}
+                  max={1}
+                  step={0.01}
                   onChange={v => handleUpdateConfig(ConfigKey.backgroundOpacity, v)} />
         </div>
-        <span className="danmaku-adjust-value dp-i-block">{toPercentNum(config.backgroundOpacity)}%</span>
+        <span className="danmaku-adjust-value dp-i-block">{config.backgroundOpacity}</span>
       </div>
+
       <div className="danmaku-adjust-row">
         <span className="danmaku-adjust-label v-middle dp-i-block">{t('AvatarSize')}</span>
         <div className="link-range-ctnr">
@@ -745,25 +742,33 @@ function About(props: {
   return (
     <div className="aboutContainer">
       <h1 className="title">{t('AboutTitle')}</h1>
-      <div onClick={() => openLink(`https://github.com/Beats0/bilive-danmaku`)} className="cursor danmaku-adjust-row2">
+      <div onClick={() => openLink(`https://github.com/Vincent-the-gamer/bilive-danmaku`)} className="cursor danmaku-adjust-row2">
         <span className="danmaku-adjust-label-about v-middle dp-i-block">{t('AboutSourceCode')}</span>
         <span>GitHub</span>
       </div>
       <div className="danmaku-adjust-row2">
         <span className="danmaku-adjust-label-about v-middle dp-i-block">{t('CurrentVersion')}</span>
-        <span>V{config.version}</span>
+        <span>V{config.version}.Fork&nbsp;</span>
       </div>
-      <div onClick={() => openLink(`https://github.com/Beats0/bilive-danmaku/releases`)} className="cursor danmaku-adjust-row2 version">
+      <div onClick={() => openLink(`https://github.com/Vincent-the-gamer/bilive-danmaku/releases`)} className="cursor danmaku-adjust-row2 version">
         <span className="danmaku-adjust-label-about v-middle dp-i-block">{t('LatestVersion')}</span>
-        <span>V{config.latestVersion}</span>
+        <span>V{config.latestVersion}.Fork</span>
         {newVersion && <span className="versionDot" />}
       </div>
       <div onClick={() => openLink(`https://github.com/Beats0`)} className="cursor danmaku-adjust-row2">
-        <span className="danmaku-adjust-label-about v-middle dp-i-block">{t('Author')}</span>
+        <span className="danmaku-adjust-label-about v-middle dp-i-block">原作者：</span>
         <span>Beats0</span>
       </div>
-      <div onClick={() => openLink(`https://github.com/Beats0/bilive-danmaku/blob/master/LICENSE`)} className="cursor danmaku-adjust-row2">
-        <span className="danmaku-adjust-label-about v-middle dp-i-block">Licence</span>
+      <div onClick={() => openLink(`https://github.com/Vincent-the-gamer`)} className="cursor danmaku-adjust-row2">
+        <span className="danmaku-adjust-label-about v-middle dp-i-block">源代码Fork修改者：</span>
+        <span>诡锋</span>
+      </div>
+      <div onClick={() => openLink(`https://space.bilibili.com/3342738`)} className="cursor danmaku-adjust-row2">
+        <span className="danmaku-adjust-label-about v-middle dp-i-block">B站：</span>
+        <span>-诡锋丿Lavafall-</span>
+      </div>
+      <div onClick={() => openLink(`https://github.com/Vincent-the-gamer/bilive-danmaku/blob/master/LICENSE`)} className="cursor danmaku-adjust-row2">
+        <span className="danmaku-adjust-label-about v-middle dp-i-block">License</span>
         <span>MIT</span>
       </div>
     </div>

@@ -5,21 +5,22 @@ const prefixKey = 'config';
 
 const resentLiveData = LiveRoomDao.getResent();
 
+//配置信息管理
 export const defaultConfig: ConfigStateType = {
-  version: pkg.version,
-  latestVersion: pkg.version,
+  version: pkg.version, //当前版本号
+  latestVersion: pkg.version, //最新版本号
   languageCode: 'zhCn',
-  setAlwaysOnTop: 1,
-  roomid: resentLiveData.roomid,
-  shortid: resentLiveData.shortid,
-  ignoreMouse: 0,
-  showAvatar: 0,
+  setAlwaysOnTop: 0, //窗口置顶：默认不置顶
+  roomid: resentLiveData.roomid,  //直播间ID
+  shortid: resentLiveData.shortid, //短ID,这个字段和直播间ID一样，也不知道有啥区别
+  ignoreMouse: 0, //默认鼠标穿透：不穿透
+  showAvatar: 1, //默认显示头像
   avatarSize: 24,
-  showFanLabel: 0,
-  showLvLabel: 0,
-  showVip: 0,
-  backgroundColor: 1,
-  backgroundOpacity: 0.5,
+  showFanLabel: 1, //默认显示粉丝勋章
+  showLvLabel: 1, //默认显示等级
+  showVip: 1, //默认显示姥爷
+  backgroundColor: 1, //背景颜色, 默认骚紫色
+  backgroundOpacity: 0.5, //背景透明度
   fontFamily: '',
   fontSize: 17,
   fontLineHeight: 24,

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useTranslation } from 'react-i18next';
 import Menu, { Item as MenuItem } from 'rc-menu';
 import Dropdown from 'rc-dropdown';

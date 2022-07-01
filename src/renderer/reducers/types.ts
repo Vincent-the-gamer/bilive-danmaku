@@ -1,6 +1,7 @@
 import { Dispatch as ReduxDispatch, Store as ReduxStore, Action } from 'redux';
 import { SocketInstanceType } from '../components/Danmaku/base/Socket';
 
+//配置key的枚举
 export enum ConfigKey {
   version = 'version',
   latestVersion = 'latestVersion',

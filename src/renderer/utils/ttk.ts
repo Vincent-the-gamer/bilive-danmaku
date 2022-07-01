@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Configstore from 'configstore';
 
 // BEGIN

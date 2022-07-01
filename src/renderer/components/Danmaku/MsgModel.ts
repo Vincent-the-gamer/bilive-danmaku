@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable consistent-return */
-
+//@ts-nocheck
 import UserInfoApiTask, { apiTaskConfig } from '../../api';
 import config from '../../config';
 import UserAvatarDao from '../../dao/UserAvatarDao';

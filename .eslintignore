@@ -28,3 +28,6 @@ package-lock.json
 *.css.d.ts
 *.sass.d.ts
 *.scss.d.ts
+
+*.tsx
+*.ts

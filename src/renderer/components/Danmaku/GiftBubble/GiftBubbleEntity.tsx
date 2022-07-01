@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { forwardRef, useCallback, useImperativeHandle } from 'react';
 import { useList } from './Provider';
 import { CmdType } from '../MsgModel';

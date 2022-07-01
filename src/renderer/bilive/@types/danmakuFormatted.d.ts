@@ -148,7 +148,7 @@ type ConfigStateType = {
   showLvLabel: 0 | 1;
   // 显示姥爷
   showVip: 0 | 1;
-  // 背景颜色 0白色 1黑色
+  // 背景颜色
   backgroundColor: 0 | 1;
   // 背景透明度
   backgroundOpacity: number;

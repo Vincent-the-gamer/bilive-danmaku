@@ -1,25 +1,16 @@
+// @ts-nocheck
+
 import { ipcRenderer } from 'electron';
-import React, {
-  FC,
-  FormEvent,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { FC, FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Notification from 'rc-notification';
 import { NotificationInstance as RCNotificationInstance } from 'rc-notification/lib/Notification';
 import DanmakuList, { DanmakuListRef } from './DanmakuList/DanmakuList';
-import DanmakuGiftList, {
-  DanmakuGiftListRef,
-} from './DanmakuGiftList/DanmakuGiftList';
-import SuperChatPanel, {
-  SuperChatPanelRef,
-} from './SuperChatPanel/SuperChatPanel';
+import DanmakuGiftList, { DanmakuGiftListRef } from './DanmakuGiftList/DanmakuGiftList';
+import SuperChatPanel, { SuperChatPanelRef } from './SuperChatPanel/SuperChatPanel';
 import GiftBubble, { GiftBubbleRef } from './GiftBubble/GiftBubble';
 import { CmdType } from './MsgModel';
-import voice from '../../utils/vioce';
+import voice from '../../utils/voice';
 import MsgEntity from './MsgEntity/MsgEntity';
 import { getLiveRoomInfo, getResentSuperChat, LiveRoom } from '../../api';
 import { ConfigKey } from '../../reducers/types';
@@ -28,16 +19,11 @@ import LiveRoomLists from './LiveRoomLists/LiveRoomLists';
 import RankMessageLists from './RankMessageLists/RankMessageLists';
 import DanmakuControl from './DanmakuControl/DanmakuControl';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import {
-  fetchVersionInfo,
-  selectConfig,
-  updateConfig,
-} from '../../store/features/configSlice';
-import {
-  createSocket,
-  fetchGiftData,
-  selectDanmaku,
-} from '../../store/features/danmakuSlice';
+import { fetchVersionInfo, selectConfig, updateConfig } from '../../store/features/configSlice';
+import { createSocket, fetchGiftData, selectDanmaku } from '../../store/features/danmakuSlice';
+
+import axios from 'axios';
+import LiveRoomDao from '../../dao/LiveRoomDao';
 
 let notificationInstance: RCNotificationInstance | null = null;
 Notification.newInstance(
@@ -268,7 +254,7 @@ const Danmaku: FC = () => {
       ipcRenderer.send('setIgnoreMouse', true);
     }
   }
-
+//初始化css参数
   function initCssVariable() {
     const cssVariables = [
       { k: ConfigKey.avatarSize, v: `${config.avatarSize}px` },
@@ -278,11 +264,13 @@ const Danmaku: FC = () => {
       { k: ConfigKey.fontMarginTop, v: `${config.fontMarginTop}px` },
       {
         k: ConfigKey.backgroundColor,
-        v:
-          config.backgroundColor === 0
-            ? `rgba(255,255,255, ${config.backgroundOpacity})`
-            : `rgba(0,0,0, ${config.backgroundOpacity})`,
+        v: config.backgroundColor === 0 ? `rgba(0,0,0,${config.backgroundOpacity}` : `rgba(255,20,147,${config.backgroundOpacity}`
       },
+      {
+        k: ConfigKey.backgroundOpacity,
+        v: `${config.backgroundOpacity}`
+      }
+
     ];
     cssVariables.forEach((item) => {
       setCssVariable(item.k, item.v);
@@ -302,20 +290,40 @@ const Danmaku: FC = () => {
     }
   });
 
+  //主播信息
+  const liveHost = LiveRoomDao.getResent()
+  //UP主（主播的名字）
+  let [upName,setUpName] = useState('')
+
+  //发请求拿到主播的名字
+  useEffect(() => {
+    //从请求里面找到b站的api
+      axios
+        .get(`https://api.bilibili.com/x/space/acc/info?mid=${ liveHost.uid }&jsonp=jsonp`)
+        .then(response => {
+            setUpName(response.data.data.name)
+          },
+          error => {
+            setUpName('请求UP主昵称错误！')
+          }
+        )
+  })
+
   return (
     <div className="danmakuContainer">
       <div className="liveConfig">
-        <span className="liveInfoBar">RoomID:</span>
+        <span className="liveInfoBar">直播房间号:</span>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             onChange={(e) => setRoomID(Number(e.target.value))}
             value={roomID}
             className="link-input config-input v-middle border-box level-input"
-            style={{ width: 80 }}
+            style={{ width: 85 }}
           />
           <input type="submit" className="hidden" value="Save" />
         </form>
+        <h4>对应的UP主：{ upName } </h4>
         <div className="liveInfoBar row" />
         <div className="liveIconContainer">
           <LiveRoomLists onChangeRoomID={handleSubmit} />

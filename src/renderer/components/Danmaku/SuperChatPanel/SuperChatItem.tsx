@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import  { useEffect, useState, useRef } from 'react';
 import Tooltip from 'rc-tooltip';
 import { useList } from './Provider';

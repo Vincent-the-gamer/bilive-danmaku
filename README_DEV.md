@@ -1,21 +1,18 @@
-# DEV
+# 开发文档
 
-开发文档
-
-## 安装
-
-eslint配置不生效，JSX代码格式各种警告，实在搞不动了，有代码强迫症的把eslint 检查关了吧 = =
-
-## 命令
-
-调试 dev
-
+## 将项目拿到本地跑起来
+克隆项目：
+~~~shell
+git clone https://github.com/Vincent-the-gamer/bilive-danmaku.git
+~~~
+安装依赖，然后跑起来
 ```sh
-# install
-$ yarn -i
+# i安装依赖
+$ yarn install
 
-# run dev
+# 开发者模式跑起来！！！
 $ yarn start
+$ npm start
 ```
 
 打包 package

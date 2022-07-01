@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useState, useEffect } from 'react';
 import Tooltip from 'rc-tooltip';
 import { animated, useSpring } from 'react-spring';

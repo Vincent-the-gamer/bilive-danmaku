@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../index';
 import config, { setConfig } from '../../config';

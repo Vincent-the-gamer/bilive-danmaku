@@ -1,12 +1,12 @@
 {
-  "name": "bilive-danmaku",
+  "name": "bilibili-danmaku",
   "version": "1.0.8",
-  "description": "bilibili live danmaku client",
+  "description": "Bilibili弹幕姬",
   "main": "./dist/main/main.js",
   "author": {
-    "name": "Beats0",
-    "email": "Beats01998@gmail.com",
-    "url": "https://github.com/Beats0"
+    "name": "诡锋",
+    "email": "erxianqiaottjt@163.com",
+    "url": "https://github.com/Vincent-the-gamer"
   },
   "scripts": {
     "electron-rebuild": "node -r ts-node/register ../../.erb/scripts/electron-rebuild.js",
